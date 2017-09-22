@@ -1,9 +1,9 @@
-OS Assignment - 2
+# OS Assignment - 2
 Written by Dheeraj Reddy Pailla and Anshul Gupta
 
-To run the shell, enter the following commands:
-make
-./ash
+## To run the shell, enter the following commands:
+	1. make
+	2. ./ash
 
 MODULES:
 
