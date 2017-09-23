@@ -10,6 +10,7 @@ int ash_ls(char **args);
 void ash_pinfo(char **args);
 int ashLaunch(char **args, int bgflag);
 int ashExecute(char **args, int bgflag);
+void redirection(char **args);
 
 char HOME[100];
 int bgcount;
