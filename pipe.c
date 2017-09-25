@@ -1,11 +1,12 @@
-// #include "main.h"
+#include "main.h"
 #include <unistd.h>
+#include "stdio.h"
 
 struct command {
-  const char **argv;
+  char **argv;
 };
 
-int spawn_proc (int in, int out, struct command *cmd) {
+void spawn_proc (int in, int out, struct command *cmd) {
   pid_t pid;
   if ((pid = fork ()) == 0) {
       if (in != 0) {
@@ -16,9 +17,8 @@ int spawn_proc (int in, int out, struct command *cmd) {
           dup2 (out, 1);
           close (out);
       }
-      return execvp (cmd->argv [0], (char * const *)cmd->argv);
+      execvp (cmd->argv [0], (char * const *)cmd->argv);
   }
-  return pid;
 }
 
 int fork_pipes (int n, struct command *cmd) {
@@ -33,15 +33,20 @@ int fork_pipes (int n, struct command *cmd) {
   }
   if (in != 0)
     dup2 (in, 0);
-  return execvp (cmd [i].argv [0], (char * const *)cmd [i].argv);
+  execvp (cmd [i].argv [0], (char * const *)cmd [i].argv);
 }
 
-int piping (char **args) {
-  char **argz = ashGetArgs(args, '|');
-  const char *ls[] = { "ls", "-l", 0 };
-  const char *awk[] = { "awk", "{print $1}", 0 };
-  const char *sort[] = { "sort", 0 };
-  const char *uniq[] = { "uniq", 0 };
-  struct command cmd [] = { {ls}, {awk}, {sort}, {uniq} };
-  return fork_pipes (4, cmd);
+void piping (char **args) {
+  int saved_in = dup(0);
+  int saved_out = dup(1);
+  struct command cmd[100];
+  int i;
+  for(i=0; args[i]!=NULL; i++){
+    (cmd+i)->argv = (char**)ashGetArgs(args[i], " \t\r\n\a");
+  }
+  fork_pipes(i, cmd);
+  dup2(saved_in, 0);
+  close(saved_in);
+  dup2(saved_out, 1);
+  close(saved_out);
 }

@@ -11,6 +11,7 @@ void ash_pinfo(char **args);
 int ashLaunch(char **args, int bgflag);
 int ashExecute(char **args, int bgflag);
 void handler2(int sig);
+void piping(char **args);
 
 char HOME[100];
 int bgcount;

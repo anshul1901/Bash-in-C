@@ -10,7 +10,7 @@ char **ashGetArgs(char *input, char* delim)
   char *token;
 
   if (!tokens) {
-    fprintf(stderr, "lsh: allocation error\n");
+    fprintf(stderr, "ash: allocation error\n");
     exit(EXIT_FAILURE);
   }
 
@@ -23,7 +23,7 @@ char **ashGetArgs(char *input, char* delim)
       size += 50;
       tokens = realloc(tokens, size * sizeof(char*));
       if (!tokens) {
-        fprintf(stderr, "lsh: allocation error\n");
+        fprintf(stderr, "ash: allocation error\n");
         exit(EXIT_FAILURE);
       }
     }

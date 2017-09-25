@@ -16,9 +16,10 @@
 void ashLoop() {
   char *input, **args, **argz;
   int status, i=0;
-  int bgflag, j;
+  int bgflag, j, pipingf=0;
   signal(SIGINT, handler2);
   do {
+    start:
     getcwd(cwd, 80);
     if(i==0){
       strcpy(HOME, cwd);
@@ -36,6 +37,15 @@ void ashLoop() {
     printf(ANSI_COLOR_BLUE "<%s@%s:%s> " ANSI_COLOR_RESET, user, hostname, displayCWD);
     input = ashRead();
     argz = ashGetArgs(input, ";");
+    for( int i=0; argz[i] != NULL; i++){
+      args = ashGetArgs(argz[i], "|");
+      if(!args[1])
+        break;
+      piping(args);
+      pipingf = 1;
+    }
+    if(pipingf)
+      goto start;
     bgflag = 0;
     for (int i = 0; argz[i] != NULL; i++) {
       bgflag = 0;
@@ -57,6 +67,6 @@ void ashLoop() {
       free(args);
     }
     free(input);
-  } while (status);
+  } while (1);
 
 }

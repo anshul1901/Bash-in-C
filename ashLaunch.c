@@ -22,26 +22,26 @@ void handler2(int sig){
   signal(SIGINT, handler2);
 	fflush(stdout);
 }
-
-void handler3(int sig){
-	int i,index,currpid;
-	kill(currpid,20);
-	kill(currpid,18);
-
-	for(i=0;i<countfg;i++)
-	{
-		if(idnumf[i]==currpid)
-		{
-			index = i;
-			break;
-		}
-	}
-
-	idnum[procnum] = currpid;
-	strcpy(pro[procnum],prof[index]);
-	procnum++;
-
-}
+// 
+// void handler3(int sig){
+// 	int i,index,currpid;
+// 	kill(currpid,20);
+// 	kill(currpid,18);
+//
+// 	for(i=0;i<countfg;i++)
+// 	{
+// 		if(idnumf[i]==currpid)
+// 		{
+// 			index = i;
+// 			break;
+// 		}
+// 	}
+//
+// 	idnum[procnum] = currpid;
+// 	strcpy(pro[procnum],prof[index]);
+// 	procnum++;
+//
+// }
 
 int ashLaunch(char **args, int bgflag)
 {
