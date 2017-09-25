@@ -8,15 +8,10 @@
 #define ANSI_COLOR_BLUE    "\x1b[34m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-// void handler2(int sig){
-//   signal(SIGINT, handler2);
-// 	fflush(stdout);
-// }
-
 void ashLoop() {
   char *input, **args, **argz;
   int status, i=0;
-  int bgflag, j, pipingf=0;
+  int bgflag, j;
   signal(SIGINT, handler2);
   do {
     start:
@@ -37,15 +32,6 @@ void ashLoop() {
     printf(ANSI_COLOR_BLUE "<%s@%s:%s> " ANSI_COLOR_RESET, user, hostname, displayCWD);
     input = ashRead();
     argz = ashGetArgs(input, ";");
-    for( int i=0; argz[i] != NULL; i++){
-      args = ashGetArgs(argz[i], "|");
-      if(!args[1])
-        break;
-      piping(args);
-      pipingf = 1;
-    }
-    if(pipingf)
-      goto start;
     bgflag = 0;
     for (int i = 0; argz[i] != NULL; i++) {
       bgflag = 0;

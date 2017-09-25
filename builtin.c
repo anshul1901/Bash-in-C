@@ -38,11 +38,16 @@ int ash_echo(char **args) {
 }
 
 int ashExecute(char **args, int bgflag) {
-
+    for (int i = 0; args[i] != NULL; i++) {
+    if ((strcmp(args[i], ">")) == 0 || (strcmp(args[i], "<")) == 0 || (strcmp(args[i], ">>")) == 0) {
+      ash_redirection(args);
+      return 1;
+    }
+  }
   if (args[0] == NULL) {
     return 1;
-  } else if (strcmp(args[0], "quit")==0){
-    exit(1);
+  } else if(strcmp(args[0], "quit")==0){
+    exit(0);
   } else if (strcmp(args[0], "cd")==0) {
     ash_cd(args);
   } else if (strcmp(args[0], "pwd")==0) {
