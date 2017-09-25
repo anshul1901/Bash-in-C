@@ -3,12 +3,14 @@
 #include "unistd.h"
 #include "stdlib.h"
 #include "string.h"
+#include "signal.h"
 #define ANSI_COLOR_RED    "\x1b[31m"
 #define ANSI_COLOR_BLUE    "\x1b[34m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
 void ashLoop() {
   char *input, **args, **argz;
+  signal(SIGINT, SIG_IGN);
   // char cwd[200], user[200], hostname[200];
   int status, i=0;
   int bgflag, j;

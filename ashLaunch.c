@@ -12,9 +12,10 @@ void handler(int sig)
 {
   pid_t pid;
   pid = wait(NULL);
-  if(pid!=-1)
+  if(pid!=-1){
     printf("\n[%d] done.\n", pid);
-  bgcount--;
+    bgcount--;
+  }
 }
 
 int ashLaunch(char **args, int bgflag)
@@ -22,7 +23,6 @@ int ashLaunch(char **args, int bgflag)
   int pid, wpid;
   int status;
   signal(SIGCHLD, handler);
-
   pid = fork();
   if (pid == 0) {
     if (execvp(args[0], args) == -1) {
