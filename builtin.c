@@ -41,6 +41,8 @@ int ashExecute(char **args, int bgflag) {
 
   if (args[0] == NULL) {
     return 1;
+  } else if (strcmp(args[0], "quit")==0){
+    exit(1);
   } else if (strcmp(args[0], "cd")==0) {
     ash_cd(args);
   } else if (strcmp(args[0], "pwd")==0) {

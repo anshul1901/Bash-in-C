@@ -8,13 +8,16 @@
 #define ANSI_COLOR_BLUE    "\x1b[34m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
+// void handler2(int sig){
+//   signal(SIGINT, handler2);
+// 	fflush(stdout);
+// }
+
 void ashLoop() {
   char *input, **args, **argz;
-  signal(SIGINT, SIG_IGN);
-  // char cwd[200], user[200], hostname[200];
   int status, i=0;
   int bgflag, j;
-
+  signal(SIGINT, handler2);
   do {
     getcwd(cwd, 80);
     if(i==0){
